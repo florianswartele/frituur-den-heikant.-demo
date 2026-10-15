@@ -1,172 +1,259 @@
 
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap');
+const menuToggle = document.querySelector(".menu-toggle");
+const navigation = document.querySelector("#navigation");
 
-:root {
-  --bg: #11110f;
-  --panel: #1b1b18;
-  --text: #f7f3e9;
-  --muted: #aaa99e;
-  --yellow: #f6ca52;
-  --line: #35352f;
+// Mobiele navigatie
+if (menuToggle && navigation) {
+  menuToggle.addEventListener("click", () => {
+    const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
+
+    menuToggle.setAttribute("aria-expanded", String(!isOpen));
+    navigation.classList.toggle("open", !isOpen);
+  });
+
+  navigation.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      menuToggle.setAttribute("aria-expanded", "false");
+      navigation.classList.remove("open");
+    });
+  });
 }
 
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 90px; }
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'DM Sans', sans-serif;
-  line-height: 1.6;
-}
-a { color: inherit; text-decoration: none; }
-button { font: inherit; }
-img { display: block; width: 100%; }
-.demo-bar {
-  padding: 8px 16px;
-  background: var(--yellow);
-  color: #17150f;
-  text-align: center;
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 1.3px;
-}
-.header {
-  height: 84px;
-  padding: 0 7%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  background: #11110f;
-  border-bottom: 1px solid var(--line);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-.brand { display: flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: 1px; line-height: 1.15; }
-.brand-icon {
-  width: 43px; height: 43px; display: grid; place-items: center;
-  background: var(--yellow); color: #17150f; font-weight: 800; border-radius: 50%;
-}
-.brand small { display: block; margin-top: 5px; font-size: 9px; letter-spacing: 2px; color: var(--muted); }
-.navigation { display: flex; align-items: center; gap: 30px; font-size: 13px; font-weight: 600; }
-.navigation a:hover, .footer > a:last-child:hover { color: var(--yellow); }
-.navigation .nav-cta { border: 1px solid #55554b; padding: 10px 16px; border-radius: 3px; }
-.menu-toggle { display: none; background: none; color: var(--text); border: 0; font-size: 26px; cursor: pointer; }
-.hero {
-  min-height: 610px; position: relative; overflow: hidden;
-  display: flex; align-items: center; padding: 80px 10%;
-}
-.hero-image {
-  position: absolute; inset: 0 0 0 28%;
-  background: linear-gradient(90deg, var(--bg) 0%, rgba(17,17,15,.76) 24%, rgba(17,17,15,.08) 100%),
-    linear-gradient(0deg, rgba(17,17,15,.55), transparent 45%),
-    url('https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=1800&q=90') center/cover;
-  opacity: .88;
-}
-.hero-content { position: relative; z-index: 1; max-width: 650px; }
-.eyebrow, .section-label { color: var(--yellow); font-size: 11px; font-weight: 800; letter-spacing: 2px; }
-h1, h2, h3, p { margin-top: 0; }
-h1, h2 { font-family: 'Oswald', sans-serif; font-weight: 600; line-height: 1.08; text-transform: uppercase; }
-h1 { font-size: clamp(48px, 7vw, 86px); margin: 22px 0; letter-spacing: -1px; }
-h1 span, h2 span { color: var(--yellow); }
-.hero-content > p { color: #dedbd1; font-size: 17px; margin-bottom: 28px; }
-.button { display: inline-flex; justify-content: center; align-items: center; padding: 14px 22px; font-size: 12px; font-weight: 800; border-radius: 3px; transition: transform .2s, background .2s; }
-.button:hover { transform: translateY(-2px); }
-.button-yellow { background: var(--yellow); color: #17150f; }
-.hero-note { display: block; margin-top: 18px; color: var(--muted); font-size: 11px; }
-.hero-tag {
-  position: absolute; right: 8%; bottom: 48px; border: 1px solid rgba(255,255,255,.5);
-  padding: 14px 20px; font-size: 15px; font-weight: 800; line-height: 1.3; transform: rotate(-5deg);
-}
-.hero-tag span { color: var(--yellow); font-size: 10px; letter-spacing: 2px; }
-.ticker { padding: 18px 6%; display: flex; justify-content: space-around; align-items: center; gap: 16px; background: var(--yellow); color: #17150f; font-size: 11px; font-weight: 800; letter-spacing: 1.2px; flex-wrap: wrap; }
-.ticker b { font-size: 18px; }
-.section { padding: 105px 10%; }
-.intro { display: grid; grid-template-columns: 1fr 2fr .8fr; align-items: start; gap: 35px; }
-h2 { font-size: clamp(37px, 5vw, 58px); margin: 16px 0 22px; }
-.body-copy { max-width: 590px; color: var(--muted); font-size: 15px; }
-.intro-stamp { margin: 35px auto 0; padding: 20px; border: 1px solid var(--yellow); color: var(--yellow); font-family: 'Oswald', sans-serif; text-align: center; transform: rotate(7deg); font-size: 20px; line-height: 1.25; }
-.menu-section { background: #181815; }
-.section-heading { display: flex; align-items: end; justify-content: space-between; gap: 25px; margin-bottom: 35px; }
-.section-heading h2 { margin-bottom: 0; }
-.section-heading > p { color: var(--muted); font-size: 13px; margin-bottom: 6px; }
-.filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; }
-.filter { padding: 10px 18px; background: transparent; color: var(--muted); border: 1px solid #414139; border-radius: 3px; cursor: pointer; font-size: 12px; }
-.filter.active, .filter:hover { background: var(--yellow); border-color: var(--yellow); color: #17150f; }
-.food-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
-.food-card { overflow: hidden; background: #22221e; border: 1px solid #30302a; transition: transform .2s; }
-.food-card:hover { transform: translateY(-5px); }
-.food-card[hidden] { display: none; }
-.food-card img { height: 225px; object-fit: cover; }
-.food-info { padding: 22px; }
-.food-info > span { font-size: 10px; color: var(--yellow); letter-spacing: 1.5px; font-weight: 800; }
-.food-info h3 { margin: 10px 0; font-family: 'Oswald', sans-serif; text-transform: uppercase; font-size: 25px; }
-.food-info p { color: var(--muted); font-size: 12px; min-height: 38px; }
-.food-info strong { color: var(--yellow); font-size: 11px; }
-.notice { color: var(--muted); font-size: 11px; margin: 25px 0 0; }
-.feature { display: grid; grid-template-columns: 1fr 1fr; min-height: 430px; background: #20201b; }
-.feature-image { background: url('https://images.unsplash.com/photo-1518013431117-eb1465fa5752?auto=format&fit=crop&w=1200&q=85') center/cover; min-height: 340px; }
-.feature-content { padding: 75px 12%; align-self: center; }
-.feature-content p { color: var(--muted); font-size: 14px; }
-.text-link { display: inline-block; margin-top: 14px; padding-bottom: 6px; border-bottom: 1px solid var(--yellow); font-size: 12px; font-weight: 800; }
-.practical { background: var(--bg); }
-.info-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 42px; }
-.info-card { padding: 28px; background: var(--panel); border: 1px solid var(--line); }
-.info-icon { display: block; color: var(--yellow); font-size: 28px; margin-bottom: 24px; }
-.info-card .section-label { font-size: 10px; }
-.info-card h3 { font-family: 'Oswald', sans-serif; font-size: 23px; margin: 12px 0; }
-.info-card p { min-height: 48px; color: var(--muted); font-size: 12px; }
-.info-status { display: inline-block; margin-top: 12px; padding: 6px 9px; background: #303027; color: var(--yellow); font-size: 10px; }
-.contact-banner { padding: 90px 20px; text-align: center; background: var(--yellow); color: #17150f; }
-.contact-banner .section-label { color: #514016; }
-.contact-banner h2 { font-size: clamp(43px, 6vw, 68px); margin: 20px 0; }
-.contact-banner h2 span { color: #675019; }
-.contact-banner p { font-size: 13px; margin-bottom: 25px; }
-.contact-banner .button { background: #17150f; color: white; }
-.footer { display: flex; align-items: center; justify-content: space-between; gap: 25px; padding: 30px 7%; border-top: 1px solid var(--line); }
-.footer p, .footer > a:last-child { color: var(--muted); font-size: 11px; margin: 0; }
+// Menu filteren op categorie
+const filterButtons = document.querySelectorAll(".filter-button");
+const menuCards = document.querySelectorAll(".menu-card");
 
-@media (max-width: 900px) {
-  .header { padding: 0 5%; }
-  .navigation { gap: 16px; }
-  .hero { padding: 70px 7%; min-height: 560px; }
-  .hero-image { left: 10%; }
-  .section { padding: 75px 7%; }
-  .intro { grid-template-columns: 1fr 2fr; }
-  .intro-stamp { display: none; }
-  .food-card img { height: 180px; }
-  .food-info { padding: 17px; }
-  .info-card { padding: 20px; }
+filterButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const selectedCategory = button.dataset.filter;
+
+    filterButtons.forEach((item) => {
+      item.classList.toggle("active", item === button);
+    });
+
+    menuCards.forEach((card) => {
+      const matches =
+        selectedCategory === "all" ||
+        card.dataset.category === selectedCategory;
+
+      card.hidden = !matches;
+    });
+  });
+});
+
+// Markeer de huidige weekdag in de openingsuren
+const weekdays = [
+  "sunday",
+  "monday",
+  "tuesday",
+  "wednesday",
+  "thursday",
+  "friday",
+  "saturday"
+];
+
+const today = weekdays[new Date().getDay()];
+const todayRow = document.querySelector(
+  `.hours-row[data-day="${today}"]`
+);
+
+if (todayRow) {
+  todayRow.classList.add("is-today");
 }
-@media (max-width: 650px) {
-  .demo-bar { font-size: 9px; letter-spacing: .6px; }
-  .header { height: 72px; }
-  .brand-icon { width: 38px; height: 38px; }
-  .menu-toggle { display: block; }
-  .navigation { display: none; position: absolute; top: 71px; left: 0; right: 0; padding: 20px 6%; background: #191916; border-bottom: 1px solid var(--line); flex-direction: column; align-items: stretch; gap: 0; }
-  .navigation.open { display: flex; }
-  .navigation a { padding: 13px 0; }
-  .navigation .nav-cta { text-align: center; margin-top: 8px; padding: 12px; }
-  .hero { min-height: 540px; padding: 70px 7%; align-items: center; }
-  .hero-image { inset: 0; background-position: center; background-image: linear-gradient(90deg, rgba(17,17,15,.93), rgba(17,17,15,.48)), linear-gradient(0deg, rgba(17,17,15,.45), transparent), url('https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=1200&q=85'); }
-  h1 { font-size: clamp(46px, 12vw, 68px); }
-  .hero-tag { right: 7%; bottom: 20px; font-size: 11px; padding: 10px; }
-  .ticker { gap: 10px; padding: 15px 5%; font-size: 9px; }
-  .ticker span:nth-of-type(n+3), .ticker b:nth-of-type(n+3) { display: none; }
-  .section { padding: 65px 6%; }
-  .intro { display: block; }
-  .intro > div:nth-child(2) { margin-top: 28px; }
-  .section-heading { display: block; }
-  .section-heading > p { margin-top: 20px; }
-  .food-grid, .info-grid { grid-template-columns: 1fr; }
-  .food-card img { height: 230px; }
-  .food-info p, .info-card p { min-height: 0; }
-  .feature { grid-template-columns: 1fr; }
-  .feature-image { min-height: 270px; }
-  .feature-content { padding: 50px 7%; }
-  .contact-banner { padding: 70px 7%; }
-  .footer { padding: 28px 6%; flex-wrap: wrap; }
-  .footer p { order: 3; flex-basis: 100%; }
+
+// Nederlands / Engels
+const translations = {
+  nl: {
+    navMenu: "Menu",
+    navAbout: "Over ons",
+    navReviews: "Reviews",
+    navHours: "Openingsuren",
+    navContact: "Contact & route ↗",
+
+    heroTitle: "Goudgele frieten.<br><em>Da's genieten.</em>",
+    heroText: "Zin in een goeie portie frieten? Ontdek het menu van Frituur Den Heikant en kom langs in Zele.",
+    heroButton: "Ontdek het menu",
+    hoursLink: "Bekijk openingsuren →",
+
+    infoOne: "Frieten & snacks",
+    infoOneSub: "Frituurklassiekers",
+    infoTwo: "In Zele",
+    infoThree: "Spring gerust binnen",
+    infoThreeSub: "Bekijk de openingsuren",
+
+    menuEyebrow: "OP HET MENU",
+    menuTitle: "Waar heb je <em>goesting in?</em>",
+    menuIntro: "Van een portie frieten tot een lekkere snack. Ontdek een selectie van de frituurklassiekers.",
+    demoMenuTitle: "Voorbeeldmenu voor portfolio",
+    demoMenuText: "Controleer alle prijzen en producten met de officiële menukaart voordat deze website echt wordt gepubliceerd.",
+
+    filterAll: "Alles",
+    filterFries: "Frieten",
+    filterSauces: "Sauzen",
+    filterSnacks: "Snacks",
+    filterBurgers: "Burgers",
+    filterDrinks: "Dranken",
+
+    friesTitle: "Verse frieten",
+    friesDescription: "Kies jouw portie.",
+    smulboxDescription: "Een stevige portie.",
+    saucesTitle: "Sauzen",
+    saucesDescription: "Maak je frietjes compleet.",
+    sauceFries: "Saus op de frietjes",
+    saucePot: "Saus in een potje",
+    snackDescription: "Een echte frituurfavoriet.",
+    otherSnacks: "Andere snacks",
+    otherSnacksDescription: "Boulet Heikant, viandel, kipkorn, bami en kaaskroket.",
+    burgerDescription: "Verschillende varianten.",
+    drinksTitle: "Frisdranken",
+    priceCheck: "Prijs controleren",
+    menuFootnote: "Dit is een selectie voor de demo, niet het volledige menu. Controleer alle prijzen voor publicatie.",
+
+    aboutEyebrow: "FRITUUR IN ZELE",
+    aboutTitle: "Een vertrouwde stop voor <em>frietjes en snacks.</em>",
+    aboutText: "Frituur Den Heikant vind je aan Heikant 265 in Zele. Kom langs voor een portie frieten, een snack of jouw favoriete saus.",
+    aboutButton: "Plan je bezoek",
+    aboutDemoNote: "Deze beschrijving is voorlopig geschreven voor de portfolio-demo.",
+
+    reviewsEyebrow: "WOORDEN VAN KLANTEN",
+    reviewsTitle: "Liefde voor de <em>frituur.</em>",
+    reviewDemo: "Selectie van aangeleverde reviews · demo",
+    reviewDisclaimer: "Reviews zijn aangeleverd voor deze portfolio-demo. Controleer de bron, tekst en toestemming voordat je ze op een officiële website publiceert.",
+
+    hoursEyebrow: "KOM GERUST BINNEN",
+    hoursTitle: "Wanneer heb je <em>goesting?</em>",
+    hoursText: "Plan je bezoek op een moment dat het jou past. De onderstaande openingsuren zijn aangeleverd voor deze demo.",
+    routeLink: "Plan je route in Google Maps ↗",
+    openingHours: "Openingsuren",
+    demoLabel: "DEMO-GEGEVENS",
+
+    monday: "Maandag",
+    tuesday: "Dinsdag",
+    wednesday: "Woensdag",
+    thursday: "Donderdag",
+    friday: "Vrijdag",
+    saturday: "Zaterdag",
+    sunday: "Zondag",
+    closed: "Gesloten",
+
+    contactEyebrow: "TOT BINNENKORT",
+    contactTitle: "Je frietjes<br><em>wachten op je.</em>",
+    contactText: "Vind ons in Zele of bel even voor meer informatie.",
+    routeButton: "Plan je route",
+    contactDemoNote: "Controleer adres en telefoonnummer voordat je deze demo officieel gebruikt.",
+
+    footerText: "Portfolio-demo voor Frituur Den Heikant.",
+    backTop: "Terug naar boven ↑"
+  },
+
+  en: {
+    navMenu: "Menu",
+    navAbout: "About",
+    navReviews: "Reviews",
+    navHours: "Opening hours",
+    navContact: "Contact & directions ↗",
+
+    heroTitle: "Golden fries.<br><em>Pure comfort.</em>",
+    heroText: "Craving a good portion of fries? Explore the Frituur Den Heikant menu and visit us in Zele.",
+    heroButton: "Explore the menu",
+    hoursLink: "View opening hours →",
+
+    infoOne: "Fries & snacks",
+    infoOneSub: "Fry-shop favourites",
+    infoTwo: "In Zele",
+    infoThree: "Drop by",
+    infoThreeSub: "Check opening hours",
+
+    menuEyebrow: "ON THE MENU",
+    menuTitle: "What are you <em>craving?</em>",
+    menuIntro: "From a portion of fries to a tasty snack. Discover a selection of fry-shop classics.",
+    demoMenuTitle: "Portfolio sample menu",
+    demoMenuText: "Check all prices and products against the official menu before publishing this website.",
+
+    filterAll: "All",
+    filterFries: "Fries",
+    filterSauces: "Sauces",
+    filterSnacks: "Snacks",
+    filterBurgers: "Burgers",
+    filterDrinks: "Drinks",
+
+    friesTitle: "Fresh fries",
+    friesDescription: "Choose your portion.",
+    smulboxDescription: "A hearty portion.",
+    saucesTitle: "Sauces",
+    saucesDescription: "Make your fries complete.",
+    sauceFries: "Sauce on fries",
+    saucePot: "Sauce in a pot",
+    snackDescription: "A fry-shop favourite.",
+    otherSnacks: "More snacks",
+    otherSnacksDescription: "Boulet Heikant, viandel, kipkorn, bami and cheese croquette.",
+    burgerDescription: "Several varieties.",
+    drinksTitle: "Soft drinks",
+    priceCheck: "Price to confirm",
+    menuFootnote: "This is a sample selection, not the complete menu. Check all prices before publishing.",
+
+    aboutEyebrow: "FRY SHOP IN ZELE",
+    aboutTitle: "A familiar stop for <em>fries and snacks.</em>",
+    aboutText: "You'll find Frituur Den Heikant at Heikant 265 in Zele. Stop by for fries, a snack or your favourite sauce.",
+    aboutButton: "Plan your visit",
+    aboutDemoNote: "This description was written for the portfolio demo.",
+
+    reviewsEyebrow: "CUSTOMER WORDS",
+    reviewsTitle: "A little love for the <em>fry shop.</em>",
+    reviewDemo: "Selection of supplied reviews · demo",
+    reviewDisclaimer: "Reviews were supplied for this portfolio demo. Check the source, wording and permission before publishing them on an official website.",
+
+    hoursEyebrow: "COME ON IN",
+    hoursTitle: "When are you <em>craving fries?</em>",
+    hoursText: "Plan your visit at a time that suits you. The opening hours below were supplied for this demo.",
+    routeLink: "Get directions in Google Maps ↗",
+    openingHours: "Opening hours",
+    demoLabel: "DEMO DETAILS",
+
+    monday: "Monday",
+    tuesday: "Tuesday",
+    wednesday: "Wednesday",
+    thursday: "Thursday",
+    friday: "Friday",
+    saturday: "Saturday",
+    sunday: "Sunday",
+    closed: "Closed",
+
+    contactEyebrow: "SEE YOU SOON",
+    contactTitle: "Your fries<br><em>are waiting.</em>",
+    contactText: "Find us in Zele or give us a call for more information.",
+    routeButton: "Get directions",
+    contactDemoNote: "Verify the address and phone number before using this demo officially.",
+
+    footerText: "Portfolio demo for Frituur Den Heikant.",
+    backTop: "Back to top ↑"
+  }
+};
+
+const languageButton = document.querySelector(".language-button");
+let currentLanguage = "nl";
+
+function changeLanguage(language) {
+  currentLanguage = language;
+  document.documentElement.lang = language;
+
+  document.querySelectorAll("[data-i18n]").forEach((element) => {
+    const key = element.dataset.i18n;
+    const translation = translations[language][key];
+
+    if (translation !== undefined) {
+      element.innerHTML = translation;
+    }
+  });
+
+  if (languageButton) {
+    languageButton.textContent = language === "nl" ? "EN" : "NL";
+  }
 }
+
+if (languageButton) {
+  languageButton.addEventListener("click", () => {
+    changeLanguage(currentLanguage === "nl" ? "en" : "nl");
+  });
+}
+
